@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<script type="text/javascript" src="../js/d3.js"></script>
+<script type="text/javascript" src="time-series-chart.js"></script>
+</head>
+
+<body>
+
+<p id="example"></p>
+<script>
+var chart = timeSeriesChart()
+    .x(function(d) { return formatDate.parse(d.date); })
+    .y(function(d) { return +d.price; });
+
+var formatDate = d3.time.format("%b %Y");
+
+var chart = timeSeriesChart()
+    .x(function(d) { return formatDate.parse(d.date); })
+    .y(function(d) { return +d.price; });
+
+var formatDate = d3.time.format("%b %Y");
+
+d3.csv("sp500.csv", function(data) {
+  d3.select("#example")
+      .datum(data)
+      .call(chart);
+});
+</script>
+</body>
+
+</html>

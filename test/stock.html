@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="../js/d3.js"></script>
+<script type="text/javascript" src="time-series-chart.js"></script>
+</head>
+
+<body>
+
+<script>
+// Example data
+var data = [
+    {
+        name: "Series1",
+        data: ohlcData
+    },
+    {
+        name: "Series2",
+        data: ohlcData
+    }
+];
+
+var ohlcData = [
+    {
+        date:  new Date(2014,8,25),
+        open:  120,
+        high:  121,
+        low:   119,
+        close: 120.5
+    },
+    {
+        date:  new Date(2014,8,26),
+        open:  121,
+        high:  122,
+        low:   119,
+        close: 120
+    }
+];
+</script>
+</body>
+
+</html>
