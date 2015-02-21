@@ -1,6 +1,7 @@
 from flask import Flask,render_template
 
 from news.nyapi.topstories import NyTimes
+from bloomberg import ticks
 
 APP_TYPE = 'console'
 
@@ -13,6 +14,12 @@ def show_top_stories():
     print data['num_results'] # example data access
     return str(data)
 
+
+def get_stock_data(sinfo):
+    for k in sinfo.keys():
+        data = ticks.request_ticker("{} US Equity".format(sinfo[k]))
+        print data
+
 @app.route('/popular')
 def show_popular_stories():
     api = NyTimes()
@@ -20,26 +27,26 @@ def show_popular_stories():
     #print str(data)
     
     for article in data['results']:
-        print grab_tickers(article)
+        get_stock_data(grab_tickers(article))
     return str(data)
 
 def grab_tickers(article):
     # Grabs the organisation names and returns lists of the ticker symbols and markets
     import ticker_fetch
     organisations = article['org_facet']
-    symbols = []
-    markets = []
+    symbols = {}
     print "**",article['title'],"**"
     if len(organisations)>0:
         #print "**",article['title'],"**"    # print article title
         for organisation in organisations:
             symbol = ticker_fetch.fetch_ticker_symbol(organisation)
-            if symbol==[]:
-                print 'Failed to fetch symbol for:',organisation
-            else:
-                symbols.append(symbol[1])   # add to the lists
-                markets.append(symbol[0])
-    return symbols,markets
+            if symbol!=[]:
+            #     print 'Failed to fetch symbol for:',organisation
+            # else:
+                # symbols.append(symbol[1])   # add to the lists
+                symbols[symbol[1]] = symbol[0]
+
+    return symbols
 
 @app.route('/')
 def index(name=None):
