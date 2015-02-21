@@ -12,6 +12,7 @@ data = {
     "periodicitySelection": "DAILY"
 }
 
+
 def request(host):
     req = urllib2.Request('https://{}/request?ns=blp&service=refdata&type=HistoricalDataRequest'.format(host))
     req.add_header('Content-Type', 'application/json')

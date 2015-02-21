@@ -9,20 +9,21 @@ def fetch_ticker_symbol(name):
     if text:
         start = text.find("var _ticker = ") # comes before the ticker symbol name
         if start==-1:   # if not found
-            return ''
+            return []
         else:
             end = text.find("';",start)
             stock_symbol = text[start+15:end]   # saved as market:symbol
-            return stock_symbol
+            return stock_symbol.split(":")
     else:
-        return ''
+        return []
 
 def test_ticker_fetch():
-    org_names = ["facebook","WALMART STORES INC","st andrews"]
+    org_names = ["facebook","WALMART STORES INC","st andrews", "Morgan stanley", "american express "]
     for org in org_names:
         ticker_symbol = fetch_ticker_symbol(org)
-        if ticker_symbol=='':
+
+        if ticker_symbol==[]:
             print 'Failed to fetch symbol for:', org
         else:
-            print org, ':', ticker_symbol
+            print org, ' Symbol:', ticker_symbol[1], ', Market:', ticker_symbol[0]
 
