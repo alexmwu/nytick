@@ -27,7 +27,9 @@ def show_popular_stories():
     #print str(data)
     
     for article in data['results']:
-        get_stock_data(grab_tickers(article))
+        symbols, pub_date = grab_tickers(article)
+        print pub_date
+        get_stock_data(symbols)
     return str(data)
 
 def grab_tickers(article):
@@ -35,6 +37,7 @@ def grab_tickers(article):
     import ticker_fetch
     organisations = article['org_facet']
     symbols = {}
+    pub_date = -1
     print "**",article['title'],"**"
     if len(organisations)>0:
         #print "**",article['title'],"**"    # print article title
@@ -45,8 +48,9 @@ def grab_tickers(article):
             # else:
                 # symbols.append(symbol[1])   # add to the lists
                 symbols[symbol[1]] = symbol[0]
-
-    return symbols
+                pub_date = article['published_date']
+            
+    return symbols, pub_date
 
 @app.route('/')
 def index(name=None):
