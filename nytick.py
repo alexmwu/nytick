@@ -20,7 +20,7 @@ def show_popular_stories():
     #print str(data)
     
     for article in data['results']:
-        grab_tickers(article)
+        print grab_tickers(article)
     return str(data)
 
 def grab_tickers(article):
