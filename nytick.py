@@ -34,10 +34,5 @@ def main():
     show_popular_stories()
 
 if __name__ == '__main__':
-    if APP_TYPE=='console':
-        main()
-    elif APP_TYPE=='web':
         app.debug=True
-        app.run()
-    else:
-        print "Error -", APP_TYPE
+        app.run(host='0.0.0.0')
