@@ -21,8 +21,10 @@ def hello_world():
     return 'Hello World!'
 
 def main():
-    from bloomberg import ticks
-    ticks.get_historical_data()
+    # from bloomberg import ticks
+    # ticks.get_historical_data()
+    import ticker_fetch
+    print ticker_fetch.test_ticker_fetch()
 
 if __name__ == '__main__':
     if APP_TYPE=='console':
