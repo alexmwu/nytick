@@ -16,9 +16,30 @@ def show_top_stories():
 @app.route('/popular')
 def show_popular_stories():
     api = NyTimes()
-    data = api.daily_popular_stories()
-    print str(data)
+    data = api.daily_popular_stories(0)
+    #print str(data)
+    
+    for article in data['results']:
+        grab_tickers(article)
     return str(data)
+
+def grab_tickers(article):
+    # Grabs the organisation names and returns lists of the ticker symbols and markets
+    import ticker_fetch
+    organisations = article['org_facet']
+    symbols = []
+    markets = []
+    print "**",article['title'],"**"
+    if len(organisations)>0:
+        #print "**",article['title'],"**"    # print article title
+        for organisation in organisations:
+            symbol = ticker_fetch.fetch_ticker_symbol(organisation)
+            if symbol==[]:
+                print 'Failed to fetch symbol for:',organisation
+            else:
+                symbols.append(symbol[1])   # add to the lists
+                markets.append(symbol[0])
+    return symbols,markets
 
 @app.route('/')
 def hello_world():

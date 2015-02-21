@@ -13,6 +13,8 @@ def fetch_ticker_symbol(name):
         else:
             end = text.find("';",start)
             stock_symbol = text[start+15:end]   # saved as market:symbol
+            if not stock_symbol.strip():    # sometimes stock_symbol can be whitespace
+                return []
             return stock_symbol.split(":")
     else:
         return []
