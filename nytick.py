@@ -1,10 +1,11 @@
 from flask import Flask
 
+from news.nyapi import NY_TOPSTORIES_KEY
 from news.nyapi.topstories import NyTop
 
+APP_TYPE = 'console'
 
 # Application: stachacks
-NY_TOPSTORIES_KEY = '976d33d544c93cac3d4c4f3fc55017d6:19:71402826'
 
 app = Flask(__name__)
 
@@ -19,5 +20,12 @@ def show_top_stories():
 def hello_world():
     return 'Hello World!'
 
+def main():
+    from bloomberg import ticks
+    ticks.get_historical_data()
+
 if __name__ == '__main__':
-    app.run()
+    if APP_TYPE=='console':
+        main()
+    else:
+        app.run()
