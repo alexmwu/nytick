@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title>NYTick</title>
+<link rel="stylesheet" href="css/c3.css" type="text/css">
+<script type="text/javascript" src="js/c3.js"></script>
+<script type="text/javascript" src="js/d3.js"></script>
+</head>
+
+<body>
+<div id="chart"></div>
+
+<script>
+var chart = c3.generate({
+    data: {
+        columns: [
+            ['data1', 30, 200, 100, 400, 150, 250],
+            ['data2', 50, 20, 10, 40, 15, 25]
+        ]
+    }
+});
+</script>
+</body>
+
+</html>

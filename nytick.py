@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template
 
 from news.nyapi.topstories import NyTimes
 
@@ -21,8 +21,8 @@ def show_popular_stories():
     return str(data)
 
 @app.route('/')
-def hello_world():
-    return 'Hello World!'
+def index(name=None):
+    return render_template('c3test.html', name=name)
 
 def main():
     # from bloomberg import ticks
@@ -37,6 +37,7 @@ if __name__ == '__main__':
     if APP_TYPE=='console':
         main()
     elif APP_TYPE=='web':
+        app.debug=True
         app.run()
     else:
         print "Error -", APP_TYPE
