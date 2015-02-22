@@ -12,11 +12,14 @@
 <body>
 <div id="chart"></div>
 <script>
-    var stock = {{ popular_stories|safe }};
+    var stock = {{ stock|safe }};
     stock = parse_stock(stock);
     draw_chart(stock);
 </script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/main.js') }}"></script>
+<p>
+{{ article }}
+</p>
 </body>
 
 </html>
