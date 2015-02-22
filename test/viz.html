@@ -4,18 +4,21 @@
 <head>
 <meta charset="UTF-8">
 <title>NYTick</title>
-<link rel="stylesheet" href="/static/css/lib/c3.min.css" type="text/css">
-<script type="text/javascript" src="/static/js/lib/c3.min.js"></script>
-<script type="text/javascript" src="/static/js/lib/d3.min.js"></script>
+<link rel="stylesheet" href="../static/css/lib/c3.min.css" type="text/css">
+<script type="text/javascript" src="../static/js/lib/c3.min.js"></script>
+<script type="text/javascript" src="../static/js/lib/d3.min.js"></script>
 </head>
 
 <body>
-<div id="chart"></div>
+<div class="viz" id="chart"></div>
+<script type="text/javascript" src="../static/js/main.js"></script>
 <script>
-    var stocks = [{"date": "2015-01-23T00:00:00.000Z", "OPEN": 42.34, "PX_LAST": 41.52}, {"date": "2015-01-26T00:00:00.000Z", "OPEN": 41.28, "PX_LAST": 41.9}, {"date": "2015-01-27T00:00:00.000Z", "OPEN": 41.49, "PX_LAST": 43}, {"date": "2015-01-28T00:00:00.000Z", "OPEN": 43.27, "PX_LAST": 42.75}, {"date": "2015-01-29T00:00:00.000Z", "OPEN": 42.94, "PX_LAST": 43.27}, {"date": "2015-01-30T00:00:00.000Z", "OPEN": 42.8, "PX_LAST": 42.55}, {"date": "2015-02-02T00:00:00.000Z", "OPEN": 42.72, "PX_LAST": 42.69}, {"date": "2015-02-03T00:00:00.000Z", "OPEN": 43.12, "PX_LAST": 44.15}, {"date": "2015-02-04T00:00:00.000Z", "OPEN": 43.93, "PX_LAST": 43.78}, {"date": "2015-02-05T00:00:00.000Z", "OPEN": 43.84, "PX_LAST": 44.91}, {"date": "2015-02-06T00:00:00.000Z", "OPEN": 44.9, "PX_LAST": 44.7}, {"date": "2015-02-09T00:00:00.000Z", "OPEN": 44.6, "PX_LAST": 44.95}, {"date": "2015-02-10T00:00:00.000Z", "OPEN": 45.15, "PX_LAST": 45.05}, {"date": "2015-02-11T00:00:00.000Z", "OPEN": 44.87, "PX_LAST": 44.99}, {"date": "2015-02-12T00:00:00.000Z", "OPEN": 45.37, "PX_LAST": 45.08}, {"date": "2015-02-13T00:00:00.000Z", "OPEN": 45.16, "PX_LAST": 44.89}, {"date": "2015-02-17T00:00:00.000Z", "OPEN": 43.67, "PX_LAST": 44.27}, {"date": "2015-02-18T00:00:00.000Z", "OPEN": 44.33, "PX_LAST": 43.96}, {"date": "2015-02-19T00:00:00.000Z", "OPEN": 43.99, "PX_LAST": 44}, {"date": "2015-02-20T00:00:00.000Z", "OPEN": 43.97, "PX_LAST": 44.59}];
-        
+    var stock = [{"date": "2015-01-23T00:00:00.000Z", "OPEN": 42.34, "PX_LAST": 41.52}, {"date": "2015-01-26T00:00:00.000Z", "OPEN": 41.28, "PX_LAST": 41.9}, {"date": "2015-01-27T00:00:00.000Z", "OPEN": 41.49, "PX_LAST": 43}, {"date": "2015-01-28T00:00:00.000Z", "OPEN": 43.27, "PX_LAST": 42.75}, {"date": "2015-01-29T00:00:00.000Z", "OPEN": 42.94, "PX_LAST": 43.27}, {"date": "2015-01-30T00:00:00.000Z", "OPEN": 42.8, "PX_LAST": 42.55}, {"date": "2015-02-02T00:00:00.000Z", "OPEN": 42.72, "PX_LAST": 42.69}, {"date": "2015-02-03T00:00:00.000Z", "OPEN": 43.12, "PX_LAST": 44.15}, {"date": "2015-02-04T00:00:00.000Z", "OPEN": 43.93, "PX_LAST": 43.78}, {"date": "2015-02-05T00:00:00.000Z", "OPEN": 43.84, "PX_LAST": 44.91}, {"date": "2015-02-06T00:00:00.000Z", "OPEN": 44.9, "PX_LAST": 44.7}, {"date": "2015-02-09T00:00:00.000Z", "OPEN": 44.6, "PX_LAST": 44.95}, {"date": "2015-02-10T00:00:00.000Z", "OPEN": 45.15, "PX_LAST": 45.05}, {"date": "2015-02-11T00:00:00.000Z", "OPEN": 44.87, "PX_LAST": 44.99}, {"date": "2015-02-12T00:00:00.000Z", "OPEN": 45.37, "PX_LAST": 45.08}, {"date": "2015-02-13T00:00:00.000Z", "OPEN": 45.16, "PX_LAST": 44.89}, {"date": "2015-02-17T00:00:00.000Z", "OPEN": 43.67, "PX_LAST": 44.27}, {"date": "2015-02-18T00:00:00.000Z", "OPEN": 44.33, "PX_LAST": 43.96}, {"date": "2015-02-19T00:00:00.000Z", "OPEN": 43.99, "PX_LAST": 44}, {"date": "2015-02-20T00:00:00.000Z", "OPEN": 43.97, "PX_LAST": 44.59}];
+var data_viz=document.getElementsByClassName("viz");
+
+stock = parse_stock(stock);
+draw_chart(stock);
 </script>
-<script type="text/javascript" src="/static/js/main.js"></script>
 </body>
 
 </html>
