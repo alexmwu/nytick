@@ -1,7 +1,13 @@
 from bs4 import BeautifulSoup
 import requests
 
+common_tickers = {}
+
 def fetch_ticker_symbol(name):
+
+    if common_tickers.has_key(name):
+        return common_tickers[name]
+
     req = requests.get("https://www.google.com/finance?q=" + name.replace(" ", "+"))
     soup = BeautifulSoup(req.text)
     text = str(soup.find_all("div", class_="fjfe-content"))
@@ -15,8 +21,13 @@ def fetch_ticker_symbol(name):
             stock_symbol = text[start+15:end]   # saved as market:symbol
             if not stock_symbol.strip():    # sometimes stock_symbol can be whitespace
                 return []
-            return stock_symbol.split(":")
+
+            info = stock_symbol.split(":")
+            common_tickers[name] = info
+
+            return info
     else:
+        common_tickers[name] = []
         return []
 
 def test_ticker_fetch():

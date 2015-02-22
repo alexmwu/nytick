@@ -12,7 +12,7 @@
 <body>
 <div id="chart"></div>
 <script>
-    var stock = {{ stock|safe }};
+    var stock = {{ popular_stories|safe }};
     stock = parse_stock(stock);
     draw_chart(stock);
 </script>
