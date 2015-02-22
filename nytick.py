@@ -16,8 +16,9 @@ def show_top_stories():
 
 
 def get_stock_data(sinfo):
+    data=[]
     for k in sinfo.keys():
-        data = ticks.request_ticker("{} US Equity".format(sinfo[k]))
+        data = ticks.request_ticker("{} US Equity".format(k))
         #print data
         return data
 
@@ -36,10 +37,10 @@ def get_popular_stocks():
     for article in data['results']:
         symbols, pub_date = grab_tickers(article)
         if(pub_date!=-1):
-            print symbols,pub_date     
+            #print symbols,pub_date     
             stock = get_stock_data(symbols)
-            print stock
-        #stocks.append(stock)
+            #print stock
+            stocks.append(stock)
     return stocks
 
 def grab_tickers(article):
@@ -78,9 +79,8 @@ def main():
 
 if __name__ == '__main__':
         if APP_TYPE=='web':
-            #app.debug=True
-            #app.run(host='0.0.0.0')
-            get_popular_stocks()
+            app.debug=True
+            app.run(host='0.0.0.0')
         elif APP_TYPE=='console':
             main()
         else:
