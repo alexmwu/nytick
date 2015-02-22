@@ -81,6 +81,15 @@ def popular_stories():
     data = api.daily_popular_stories(0)
     return json.dumps(data)
 
+@app.route('/get_stocks/<symbol>')
+def get_stocks_for_symbol(symbol):
+    print 'get_stocks_for_symbol:', symbol
+    data = []
+    if symbol is not None:
+        data = ticks.request_ticker("{} US Equity".format(symbol))
+    print data
+    return json.dumps(data)
+
 # Returns a JSON array of most popular stories
 @app.route('/')
 def index(name=None):
