@@ -25,17 +25,6 @@ def get_stock_data(sinfo):
 def show_popular_stories():
     api = NyTimes()
     data = api.daily_popular_stories(0)
-    #print str(data)
-    
-    for article in data['results']:
-        symbols, pub_date = grab_tickers(article)
-        #print pub_date
-        print "#################"
-        print symbols
-        print "################"
-        print pub_date
-        print "*****************"
-        get_stock_data(symbols)
     return str(data)
 
 def get_popular_stocks():
@@ -46,9 +35,11 @@ def get_popular_stocks():
 
     for article in data['results']:
         symbols, pub_date = grab_tickers(article)
-        stock = get_stock_data(symbols)
-        print stock
-        stocks.append(stock)
+        if(pub_date!=-1):
+            print symbols,pub_date     
+            stock = get_stock_data(symbols)
+            print stock
+        #stocks.append(stock)
     return stocks
 
 def grab_tickers(article):

@@ -56,3 +56,6 @@ target/
 #certs and keys
 *.crt
 *.key
+
+#intellij
+.idea/
