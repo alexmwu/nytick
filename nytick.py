@@ -104,14 +104,12 @@ def index(name=None):
     for article in p_stories["results"]:
         info = {}
         symbols, pub_date = grab_tickers(article)
-        if pub_date == -1:
-            info['is_ticker'] = False
-            info['symbols'] = []
-        else:
+        if pub_date != -1:
             info['is_ticker'] = True
             info['symbols'] = symbols
-        info['data'] = article
-        articles.append(info)
+            info['data'] = article
+            info['stock'] = get_stock_data(symbols)
+            articles.append(info)
 
     return render_template('c3test.html', popular_stories=json.dumps(articles))
 
