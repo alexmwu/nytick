@@ -51,8 +51,8 @@ def parse_stock_data(stock):
     #print data
     securityData = data["securityData"]
     #print securityData
-    fieldData = securityData["fieldData"][0]
-    print fieldData
+    fieldData = securityData["fieldData"]
+    #print fieldData
     return fieldData
     
 
