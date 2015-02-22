@@ -12,8 +12,8 @@
 <body>
 <div id="chart"></div>
 <script>
-    var stocks = {{ stocks|safe }};
-    console.log(stocks);
+    var stocks = {{ popular_stories|safe }};
+    console.log(popular_stories);
 </script>
 <script type="text/javascript" src="{{ url_for('static',filename='js/main.js') }}"></script>
 </body>

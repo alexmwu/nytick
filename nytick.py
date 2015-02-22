@@ -14,7 +14,6 @@ def show_top_stories():
     #print data['num_results'] # example data access
     return str(data)
 
-
 def get_stock_data(sinfo):
     data=[]
     for k in sinfo.keys():
@@ -76,10 +75,36 @@ def grab_tickers(article):
             
     return symbols, pub_date
 
+@app.route('/popular_stories')
+def popular_stories():
+    api = NyTimes()
+    data = api.daily_popular_stories(0)
+    return json.dumps(data)
+
+# Returns a JSON array of most popular stories
 @app.route('/')
 def index(name=None):
-    stocks = parse_stock_data(get_popular_stocks()[0]) #will only do for first stock data
-    return render_template('c3test.html',stocks=json.dumps(stocks))
+    # stocks = parse_stock_data(get_popular_stocks()[0]) #will only do for first stock data
+
+    api = NyTimes()
+    p_stories = api.daily_popular_stories(0)
+
+    print p_stories
+
+    articles = []
+    for article in p_stories["results"]:
+        info = {}
+        symbols, pub_date = grab_tickers(article)
+        if pub_date == -1:
+            info['is_ticker'] = False
+            info['symbols'] = []
+        else:
+            info['is_ticker'] = True
+            info['symbols'] = symbols
+        info['data'] = article
+        articles.append(info)
+
+    return render_template('c3test.html', popular_stories=json.dumps(articles))
 
 def main():
     # from bloomberg import ticks
