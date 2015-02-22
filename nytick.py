@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,Markup
 import json
 from news.nyapi.topstories import NyTimes
 from bloomberg import ticks
@@ -76,10 +76,20 @@ def grab_tickers(article):
             
     return symbols, pub_date
 
+#format stocks array into json for correct passing into javascript
+def stocks_to_js(stocks):
+    output={}
+    for i in range(0,len(stocks)):
+        #print stocks[i] 
+        output[str(i)] = stocks[i] 
+    return output
+
 @app.route('/')
 def index(name=None):
     stocks = parse_stock_data(get_popular_stocks()[0]) #will only do for first stock data
-    return render_template('c3test.html', stocks=stocks)
+    stocks=stocks_to_js(stocks)
+    stocks = str(stocks) 
+    return render_template('c3test.html',stocks=json.dumps(stocks))
 
 def main():
     # from bloomberg import ticks
