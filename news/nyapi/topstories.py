@@ -26,7 +26,7 @@ class NyTimes:
 
     def daily_popular_stories(self, offset, **kwargs):
         req = requests.get(self._popular_stories_api(offset))
-        print req.text
+        #print req.text
         return req.json()
 
     def top_stories(self, **kwargs):

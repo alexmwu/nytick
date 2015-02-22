@@ -23,7 +23,7 @@ def _ticker_request(request_data, cert, client_cert, client_key):
     req.add_header('Content-Type', 'application/json')
 
     ctx = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-    print cert, client_cert, client_key
+    #print cert, client_cert, client_key
     ctx.load_verify_locations(cert, capath=SEC_PATH)
     ctx.load_cert_chain(client_cert, client_key)
 

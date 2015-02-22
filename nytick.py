@@ -3,7 +3,7 @@ from flask import Flask,render_template
 from news.nyapi.topstories import NyTimes
 from bloomberg import ticks
 
-APP_TYPE = 'console'
+APP_TYPE = 'web'
 
 app = Flask(__name__)
 
@@ -11,14 +11,15 @@ app = Flask(__name__)
 def show_top_stories():
     api = NyTimes()
     data = api.top_stories()
-    print data['num_results'] # example data access
+    #print data['num_results'] # example data access
     return str(data)
 
 
 def get_stock_data(sinfo):
     for k in sinfo.keys():
         data = ticks.request_ticker("{} US Equity".format(sinfo[k]))
-        print data
+        #print data
+        return data
 
 @app.route('/popular')
 def show_popular_stories():
@@ -28,9 +29,27 @@ def show_popular_stories():
     
     for article in data['results']:
         symbols, pub_date = grab_tickers(article)
+        #print pub_date
+        print "#################"
+        print symbols
+        print "################"
         print pub_date
+        print "*****************"
         get_stock_data(symbols)
     return str(data)
+
+def get_popular_stocks():
+    api = NyTimes()
+    data = api.daily_popular_stories(0)
+    
+    stocks=[]
+
+    for article in data['results']:
+        symbols, pub_date = grab_tickers(article)
+        stock = get_stock_data(symbols)
+        print stock
+        stocks.append(stock)
+    return stocks
 
 def grab_tickers(article):
     # Grabs the organisation names and returns lists of the ticker symbols and markets
@@ -38,7 +57,7 @@ def grab_tickers(article):
     organisations = article['org_facet']
     symbols = {}
     pub_date = -1
-    print "**",article['title'],"**"
+    #print "**",article['title'],"**"
     if len(organisations)>0:
         #print "**",article['title'],"**"    # print article title
         for organisation in organisations:
@@ -54,7 +73,8 @@ def grab_tickers(article):
 
 @app.route('/')
 def index(name=None):
-    return render_template('c3test.html', name=name)
+    stocks = get_popular_stocks()
+    return render_template('c3test.html', stocks=stocks)
 
 def main():
     # from bloomberg import ticks
@@ -67,8 +87,9 @@ def main():
 
 if __name__ == '__main__':
         if APP_TYPE=='web':
-            app.debug=True
-            app.run()
+            #app.debug=True
+            #app.run(host='0.0.0.0')
+            get_popular_stocks()
         elif APP_TYPE=='console':
             main()
         else:

@@ -52,3 +52,7 @@ docs/_build/
 
 # PyBuilder
 target/
+
+#certs and keys
+*.crt
+*.key
