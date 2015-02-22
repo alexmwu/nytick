@@ -1,5 +1,5 @@
 from flask import Flask,render_template
-
+import json
 from news.nyapi.topstories import NyTimes
 from bloomberg import ticks
 
@@ -43,6 +43,19 @@ def get_popular_stocks():
             stocks.append(stock)
     return stocks
 
+#returns array of stock info requested in bloomberg HTTP api
+def parse_stock_data(stock):
+    stock_json = json.loads(stock)
+    #print stock_json
+    data = stock_json["data"][0]
+    #print data
+    securityData = data["securityData"]
+    #print securityData
+    fieldData = securityData["fieldData"][0]
+    print fieldData
+    return fieldData
+    
+
 def grab_tickers(article):
     # Grabs the organisation names and returns lists of the ticker symbols and markets
     import ticker_fetch
@@ -65,7 +78,7 @@ def grab_tickers(article):
 
 @app.route('/')
 def index(name=None):
-    stocks = get_popular_stocks()
+    stocks = parse_stock_data(get_popular_stocks()[0]) #will only do for first stock data
     return render_template('c3test.html', stocks=stocks)
 
 def main():
