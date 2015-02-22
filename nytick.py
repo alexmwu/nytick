@@ -114,7 +114,6 @@ def index(name=None):
         articles.append(info)
 
     return render_template('c3test.html', popular_stories=json.dumps(articles))
->>>>>>> c81ad7baea5226bd2be1ec15f44607c48624cd5a
 
 def main():
     # from bloomberg import ticks
