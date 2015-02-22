@@ -1,3 +1,12 @@
+function parse_stock(stock_data){
+    stock_graphable={}
+    for stock in stock_data:
+        var date = stock["date"]
+        console.log(date);
+
+} 
+
+
 var chart = c3.generate({
         data: {
                     columns: [
