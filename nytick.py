@@ -78,8 +78,8 @@ def grab_tickers(article):
 
 @app.route('/')
 def index(name=None):
-    stocks = parse_stock_data(get_popular_stocks()[0]) #will only do for first stock data
-    return render_template('c3test.html',stocks=json.dumps(stocks))
+    stock = parse_stock_data(get_popular_stocks()[0]) #will only do for first stock data
+    return render_template('c3test.html',stock=json.dumps(stock))
 
 def main():
     # from bloomberg import ticks
